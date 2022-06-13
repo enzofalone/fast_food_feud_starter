@@ -2,6 +2,10 @@ import * as React from "react"
 // IMPORT ANY NEEDED COMPONENTS HERE
 import { createDataSet } from "./data/dataset"
 import "./App.css"
+// SUB-COMPONENTS
+import Header from "./components/Header/Header"
+import Instructions from "./components/Instructions/Instructions" 
+import Chip from "./components/Chip/Chip"
 
 // don't move this!
 export const appInfo = {
@@ -21,27 +25,45 @@ export const appInfo = {
 const { data, categories, restaurants } = createDataSet()
 
 export function App() {
+
+  
+
+  const [category, setCategory] = React.useState(0);
+  const [restaurant, setRestaurant] = React.useState(0);
+
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          {/* YOUR CODE HERE */}
+          {/* iterate over all food types to be displayed */}
+          {categories.map((item, i) => (
+            <Chip key={i} label={item} isActive={category === item} onClick={() =>
+              setCategory(item)
+            }/>
+          ))}
+
         </div>
       </div>
 
       {/* MAIN COLUMN */}
       <div className="container">
-        {/* HEADER GOES HERE */}
+        {<Header title={appInfo.title} tagline={appInfo.tagline} description={appInfo.description}/>}
 
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">{/* YOUR CODE HERE */}</div>
+          <div className="restaurants options">
+            {restaurants.map((item, i) => (
+              <Chip key={i} label={item} isActive={restaurant === item} onClick={() => 
+                setRestaurant(item)
+              }/>
+            ))}
+          </div>
         </div>
 
-        {/* INSTRUCTIONS GO HERE */}
+        <Instructions instructions={appInfo.instructions.start}/>
 
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
