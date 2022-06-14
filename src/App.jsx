@@ -92,7 +92,7 @@ export function App() {
               label={element}
               isActive={restaurant === element}
               onClick={() => {
-              if (category !== element) {
+              if (restaurant !== element) {
                 setRestaurant(element)
               }}}
               />
