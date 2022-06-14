@@ -10,7 +10,7 @@ export function NutritionalLabel(props) {
       <h4 className="item-name">{props.item.item_name}</h4>
 
       <ul className="fact-list">{nutritionFacts.map((el, index) =>
-        <NutritionalLabelFact id={el.id} label={el.label} attribute={el.attribute} item={props.item}/>
+        <NutritionalLabelFact key={index} id={el.id} label={el.label} attribute={el.attribute} item={props.item}/>
       )}</ul>
     </div>
   )
