@@ -65,7 +65,7 @@ export function App() {
         <RestaurantsRow restaurants={restaurants} setRestaurant={setRestaurant} restaurant={restaurant} />
         <Instructions instructions={getInstructions()} />
         <MenuDisplay currentMenuItems={currentMenuItems} setMenuItem={setMenuItem} menuItem={menuItem}/> 
-        {<DataSource dataSource={appInfo.dataSource}/>}
+        <DataSource dataSource={appInfo.dataSource}/>
       </div>
     </main>
   )
