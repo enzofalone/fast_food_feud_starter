@@ -1,7 +1,7 @@
 import * as React from "react"
 import "./Chip.css"
 
-export function Chip({ label = "", isActive = false, onClick = () => {}}) {
+export function Chip({ label = "", isActive = false, onClick = () => { }, handleClose = () => {} }) {
   let buttonClassName;
 
   if (isActive) {
@@ -12,8 +12,12 @@ export function Chip({ label = "", isActive = false, onClick = () => {}}) {
   return (
     <button onClick={onClick} className={buttonClassName}>
       <p className="label">{label}</p>
-      <span className="close" role="button">{`X`}</span>
-    </button>
+      <span className="close" role="button" onClick={(e) => {
+        if (isActive) {
+          handleClose();
+        }
+      }}>{`X`}</span>
+    </button >
   )
 }
 

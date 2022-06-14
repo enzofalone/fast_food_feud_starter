@@ -28,15 +28,28 @@ const { data, categories, restaurants } = createDataSet()
 export function App() {
 
 
-
+  //constants
   const [restaurant, setRestaurant] = React.useState(0);
   const [category, setCategory] = React.useState(0);
   // first get current restaurant items
-  const currentMenuItems = data.filter(e => {return (e.restaurant === restaurant) && (e.food_category === category)});
-  
+  const currentMenuItems = data.filter(e => { return (e.restaurant === restaurant) && (e.food_category === category) });
+
   const [menuItem, setMenuItem] = React.useState(0);
-  console.log(menuItem);
-  console.log(currentMenuItems);
+
+  // return instructions based on what the user has or has not already done  
+  const getInstructions = () => {
+    if ((category === 0) && (restaurant === 0)) {
+      return appInfo.instructions.start
+    } else if ((category === 0)) {
+      return appInfo.instructions.onlyRestaurant
+    } else if (restaurant === 0) {
+      return appInfo.instructions.onlyCategory
+    } else if (menuItem === 0) {
+      return appInfo.instructions.noSelectedItem
+    } else {
+      return appInfo.instructions.allSelected
+    }
+  }
 
   return (
     <main className="App">
@@ -46,11 +59,19 @@ export function App() {
           <h2 className="title">Categories</h2>
           {/* iterate over all food types to be displayed */}
           {categories.map((element, i) => (
-            <Chip key={i} label={element} isActive={category === element} onClick={() =>
-              setCategory(element)
-            } />
+            <Chip
+              key={i}
+              label={element}
+              handleClose={(e) => {
+                setCategory(0);
+              }}
+              isActive={category === element}
+              onClick={() => {
+                if (category !== element) {
+                  setCategory(element)
+                }}}
+            />
           ))}
-
         </div>
       </div>
 
@@ -63,23 +84,40 @@ export function App() {
           <h2 className="title">Restaurants</h2>
           <div className="restaurants options">
             {restaurants.map((element, i) => (
-              <Chip key={i} label={element} isActive={restaurant === element} onClick={() =>
+              <Chip 
+              key={i}
+              handleClose={(e) => {
+                setRestaurant(0);
+              }}
+              label={element}
+              isActive={restaurant === element}
+              onClick={() => {
+              if (category !== element) {
                 setRestaurant(element)
-              } />
+              }}}
+              />
             ))}
           </div>
         </div>
 
-        <Instructions instructions={appInfo.instructions.start} />
+        <Instructions instructions={getInstructions()} />
 
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
             {currentMenuItems.map((element, i) => (
-              <Chip key={i} label={element.item_name} isActive={menuItem === element} onClick={() => (
-                setMenuItem(element)
-              )} />
+              <Chip key={i} 
+              label={element.item_name} 
+              handleClose={(e) => {
+                setMenuItem(0);
+              }} 
+              isActive={menuItem === element} 
+              onClick={() => {
+                if (menuItem !== element) {
+                  setMenuItem(element)
+                }}
+              } />
             ))}
           </div>
 
