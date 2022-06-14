@@ -114,10 +114,10 @@ export function App() {
               }} 
               isActive={menuItem === element} 
               onClick={() => {
-                if (menuItem !== element) {
+                if (menu !== element) {
                   setMenuItem(element)
-                }}
-              } />
+                }}} 
+              />
             ))}
           </div>
 
